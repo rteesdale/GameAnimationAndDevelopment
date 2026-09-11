@@ -1,0 +1,31 @@
+# Windows and editor noise
+Thumbs.db
+Desktop.ini
+*.lnk
+.DS_Store
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+~$*
+
+# Godot generated/imported state
+.godot/
+.import/
+*.import
+export.cfg
+export_presets.cfg
+
+# Common generated folders
+node_modules/
+dist/
+build/
+.cache/
+__pycache__/
+.venv/
+venv/
+
