@@ -1,0 +1,146 @@
+{"kind":"deck","id":"pr/8w0l3w","name":"Deck"}
+{"kind":"layout","layoutId":"3d38cca8-4802-4dc3-940c-e5c49c99cc53","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"f5df9824-0be9-4edd-8f15-1195349b822d","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/hco20v","slide":1,"title":"Game Animation & Development Studio","textShapes":3}
+{"kind":"shape","id":"sh/ba5sbqhc","slide":1,"bbox":[0,0,1280,720]}
+{"kind":"textbox","id":"sh/a9wb2l0r","slide":1,"text":"Game Animation & Development Studio","textPreview":"Game Animation & Development Studio","textChars":35,"textLines":1,"bbox":[74,392,960,96]}
+{"kind":"textbox","id":"sh/p8na9gz6","slide":1,"text":"First meet and greet","textPreview":"First meet and greet","textChars":20,"textLines":1,"bbox":[78,496,540,42]}
+{"kind":"textbox","id":"sh/o7u90bil","slide":1,"text":"Today is for names, interests, expectations, and the big idea behind the studio.","textPreview":"Today is for names, interests, expectations, and the big idea behind the studio.","textChars":80,"textLines":1,"bbox":[78,558,820,56]}
+{"kind":"image","id":"im/h8vqdwf6","slide":1,"name":"","alt":"Students in a game development classroom","bbox":[0,0,1280,720]}
+{"kind":"notes","id":"nt/hco20v","slide":1,"text":"Welcome students warmly. Keep the tone conversational.\nSource context: D:\\0_AnimationAndGameDesign\\Curriculum\\Wednesday_Studio_Session_Types.md and Academic_Year_Course_Outline_Find_It_Fix_It.md.\nImage source: local workspace image game-development-google-classroom-photoreal-1600x400.png."}
+{"kind":"slide","id":"sl/wdeorb","slide":2,"title":"Simple Meeting Agenda","textShapes":20}
+{"kind":"textbox","id":"sh/n29grm10","slide":2,"text":"Simple Meeting Agenda","textPreview":"Simple Meeting Agenda","textChars":21,"textLines":1,"bbox":[72,52,760,74]}
+{"kind":"textbox","id":"sh/o3ihk7il","slide":2,"text":"A short first session with plenty of room to talk","textPreview":"A short first session with plenty of room to talk","textChars":49,"textLines":1,"bbox":[72,116,700,42]}
+{"kind":"textbox","id":"sh/p4rytcj6","slide":2,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[98,184,58,36]}
+{"kind":"shape","id":"sh/a5kzmh0r","slide":2,"bbox":[170,180,3,48]}
+{"kind":"textbox","id":"sh/b6tgvm1c","slide":2,"text":"Welcome","textPreview":"Welcome","textChars":7,"textLines":1,"bbox":[198,182,300,30]}
+{"kind":"textbox","id":"sh/c72horix","slide":2,"text":"What the studio is for","textPreview":"What the studio is for","textChars":22,"textLines":1,"bbox":[500,185,560,30]}
+{"kind":"textbox","id":"sh/x8byxwj2","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[98,262,58,36]}
+{"kind":"shape","id":"sh/q9gfaxk7","slide":2,"bbox":[170,258,3,48]}
+{"kind":"textbox","id":"sh/rapgj21s","slide":2,"text":"Introductions","textPreview":"Introductions","textChars":13,"textLines":1,"bbox":[198,260,300,30]}
+{"kind":"textbox","id":"sh/f29sfqts","slide":2,"text":"Names, interests, and experience","textPreview":"Names, interests, and experience","textChars":32,"textLines":1,"bbox":[500,263,560,30]}
+{"kind":"textbox","id":"sh/e10b65c7","slide":2,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[98,340,58,36]}
+{"kind":"shape","id":"sh/14ruh0by","slide":2,"bbox":[170,336,3,48]}
+{"kind":"textbox","id":"sh/g3it8vud","slide":2,"text":"Studio culture","textPreview":"Studio culture","textChars":14,"textLines":1,"bbox":[198,338,300,30]}
+{"kind":"textbox","id":"sh/ry9sbqtw","slide":2,"text":"How we build and give feedback","textPreview":"How we build and give feedback","textChars":30,"textLines":1,"bbox":[500,341,560,30]}
+{"kind":"textbox","id":"sh/6xgb2lcb","slide":2,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[98,418,58,36]}
+{"kind":"shape","id":"sh/t0rad0bm","slide":2,"bbox":[170,414,3,48]}
+{"kind":"textbox","id":"sh/szit4vuh","slide":2,"text":"Big ideas","textPreview":"Big ideas","textChars":9,"textLines":1,"bbox":[198,416,300,30]}
+{"kind":"textbox","id":"sh/jups76tk","slide":2,"text":"Games, animation, users, and testing","textPreview":"Games, animation, users, and testing","textChars":36,"textLines":1,"bbox":[500,419,560,30]}
+{"kind":"textbox","id":"sh/i9gbylcz","slide":2,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[98,496,58,36]}
+{"kind":"shape","id":"sh/m5wbq1w7","slide":2,"bbox":[170,492,3,48]}
+{"kind":"textbox","id":"sh/765cj6xs","slide":2,"text":"Starting pathway","textPreview":"Starting pathway","textChars":16,"textLines":1,"bbox":[198,494,300,30]}
+{"kind":"textbox","id":"sh/87ytsbex","slide":2,"text":"Where each student begins next","textPreview":"Where each student begins next","textChars":30,"textLines":1,"bbox":[500,497,560,30]}
+{"kind":"shape","id":"sh/9s7ulgfi","slide":2,"bbox":[72,548,1136,94]}
+{"kind":"textbox","id":"sh/utgbulw3","slide":2,"text":"Discussion prompt","textPreview":"Discussion prompt","textChars":17,"textLines":1,"bbox":[100,562,290,30]}
+{"kind":"textbox","id":"sh/vupcnqxo","slide":2,"text":"What would make this studio worth showing up for each week?","textPreview":"What would make this studio worth showing up for each week?","textChars":59,"textLines":1,"bbox":[100,594,1030,38]}
+{"kind":"textbox","id":"sh/wvydwve9","slide":2,"text":"Game Animation & Development Studio  2","textPreview":"Game Animation & Development Studio  2","textChars":38,"textLines":1,"bbox":[72,666,560,30]}
+{"kind":"notes","id":"nt/wdeorb","slide":2,"text":"Use this as a timing guide, not a rigid lecture.\nInvite short responses early so students know the session expects voices, not silence.\nSource context: Orientation And Placement Meeting agenda in Wednesday_Studio_Session_Types.md."}
+{"kind":"slide","id":"sl/diqty6","slide":3,"title":"Why This Studio Exists","textShapes":9}
+{"kind":"textbox","id":"sh/lc7a18f2","slide":3,"text":"Why This Studio Exists","textPreview":"Why This Studio Exists","textChars":22,"textLines":1,"bbox":[72,52,760,74]}
+{"kind":"textbox","id":"sh/ypgrqtgb","slide":3,"text":"The aim is to make work that another person can experience","textPreview":"The aim is to make work that another person can experience","textChars":58,"textLines":1,"bbox":[72,116,700,42]}
+{"kind":"textbox","id":"sh/zqp8zyxw","slide":3,"text":"Students will learn by making visible progress, testing early, and explaining how each change affects the audience.","textPreview":"Students will learn by making visible progress, testing early, and explaining how each change affects the audience.","textChars":115,"textLines":1,"bbox":[80,192,650,110]}
+{"kind":"textbox","id":"sh/8fi9w3yt","slide":3,"text":"A game idea becomes clearer when someone else tries it.","textPreview":"A game idea becomes clearer when someone else tries it.","textChars":55,"textLines":1,"bbox":[100,344,650,42]}
+{"kind":"textbox","id":"sh/9gra58fe","slide":3,"text":"An animation becomes stronger when motion, timing, and feeling connect.","textPreview":"An animation becomes stronger when motion, timing, and feeling connect.","textChars":71,"textLines":1,"bbox":[100,402,650,42]}
+{"kind":"textbox","id":"sh/mdgrudgn","slide":3,"text":"A small improvement can teach more than a large unfinished plan.","textPreview":"A small improvement can teach more than a large unfinished plan.","textChars":64,"textLines":1,"bbox":[100,460,650,42]}
+{"kind":"shape","id":"sh/wji90nep","slide":3,"bbox":[72,560,1136,94]}
+{"kind":"textbox","id":"sh/hkra9sfa","slide":3,"text":"Discussion prompt","textPreview":"Discussion prompt","textChars":17,"textLines":1,"bbox":[100,574,290,30]}
+{"kind":"textbox","id":"sh/5gze54zu","slide":3,"text":"Think of a game, animation, or app you like. What does it make the audience do or feel?","textPreview":"Think of a game, animation, or app you like. What does it make the audience do or feel?","textChars":87,"textLines":1,"bbox":[100,606,1030,38]}
+{"kind":"textbox","id":"sh/4fqxczy9","slide":3,"text":"Game Animation & Development Studio  3","textPreview":"Game Animation & Development Studio  3","textChars":38,"textLines":1,"bbox":[72,666,560,30]}
+{"kind":"image","id":"im/6tonatgn","slide":3,"name":"","geometry":"rect","alt":"Illustrated animation and game design classroom","bbox":[810,158,360,360]}
+{"kind":"notes","id":"nt/diqty6","slide":3,"text":"Connect the studio to audience experience. This is the first big idea.\nImage source: local workspace image game-development-google-classroom.png."}
+{"kind":"slide","id":"sl/evptk1","slide":4,"title":"Studio Culture","textShapes":17}
+{"kind":"textbox","id":"sh/nipw72hk","slide":4,"text":"Studio Culture","textPreview":"Studio Culture","textChars":14,"textLines":1,"bbox":[72,52,760,74]}
+{"kind":"textbox","id":"sh/o3yx07i5","slide":4,"text":"Good creative work needs trust, iteration, and clear feedback","textPreview":"Good creative work needs trust, iteration, and clear feedback","textChars":61,"textLines":1,"bbox":[72,116,700,42]}
+{"kind":"textbox","id":"sh/947e9czq","slide":4,"text":"Test early","textPreview":"Test early","textChars":10,"textLines":1,"bbox":[90,176,360,32]}
+{"kind":"textbox","id":"sh/a50f2h0b","slide":4,"text":"Show rough work before it feels finished.","textPreview":"Show rough work before it feels finished.","textChars":41,"textLines":1,"bbox":[90,214,440,52]}
+{"kind":"textbox","id":"sh/b69wbmhw","slide":4,"text":"Save often","textPreview":"Save often","textChars":10,"textLines":1,"bbox":[650,176,360,32]}
+{"kind":"textbox","id":"sh/w7ix4ri1","slide":4,"text":"Protect progress before risky changes.","textPreview":"Protect progress before risky changes.","textChars":38,"textLines":1,"bbox":[650,214,440,52]}
+{"kind":"textbox","id":"sh/x8rydwzm","slide":4,"text":"Describe problems clearly","textPreview":"Describe problems clearly","textChars":25,"textLines":1,"bbox":[90,294,360,32]}
+{"kind":"textbox","id":"sh/y90f6107","slide":4,"text":"Name what happened and where it happened.","textPreview":"Name what happened and where it happened.","textChars":41,"textLines":1,"bbox":[90,332,440,52]}
+{"kind":"textbox","id":"sh/ja9gfmhs","slide":4,"text":"Focus feedback on the work","textPreview":"Focus feedback on the work","textChars":26,"textLines":1,"bbox":[650,294,360,32]}
+{"kind":"textbox","id":"sh/3md4765s","slide":4,"text":"Critique the design, experience, or communication.","textPreview":"Critique the design, experience, or communication.","textChars":50,"textLines":1,"bbox":[650,332,440,52]}
+{"kind":"textbox","id":"sh/2l4ny147","slide":4,"text":"Credit assets","textPreview":"Credit assets","textChars":13,"textLines":1,"bbox":[90,412,360,32]}
+{"kind":"textbox","id":"sh/povm9wni","slide":4,"text":"Respect the people whose work helps your project.","textPreview":"Respect the people whose work helps your project.","textChars":49,"textLines":1,"bbox":[90,450,440,52]}
+{"kind":"textbox","id":"sh/4nm50bmx","slide":4,"text":"Improve one small thing","textPreview":"Improve one small thing","textChars":23,"textLines":1,"bbox":[650,412,360,32]}
+{"kind":"textbox","id":"sh/fyd43m5g","slide":4,"text":"Choose a change you can test this week.","textPreview":"Choose a change you can test this week.","textChars":39,"textLines":1,"bbox":[650,450,440,52]}
+{"kind":"shape","id":"sh/uxknuhov","slide":4,"bbox":[72,548,1136,94]}
+{"kind":"textbox","id":"sh/h0vm5wnm","slide":4,"text":"Discussion prompt","textPreview":"Discussion prompt","textChars":17,"textLines":1,"bbox":[100,562,290,30]}
+{"kind":"textbox","id":"sh/gzm5wr61","slide":4,"text":"Which norm will help us most when the work gets difficult?","textPreview":"Which norm will help us most when the work gets difficult?","textChars":58,"textLines":1,"bbox":[100,594,1030,38]}
+{"kind":"textbox","id":"sh/zuxofq5k","slide":4,"text":"Game Animation & Development Studio  4","textPreview":"Game Animation & Development Studio  4","textChars":38,"textLines":1,"bbox":[72,666,560,30]}
+{"kind":"notes","id":"nt/evptk1","slide":4,"text":"These norms are adapted from the Studio Level 1 manual.\nAsk students which one they think the group will need most.\nSource context: StudioLevel1_Explorer_Game_Foundations_Instruction_Manual.md."}
+{"kind":"slide","id":"sl/vla6g0","slide":5,"title":"Big Idea: Designed Experiences","textShapes":15}
+{"kind":"textbox","id":"sh/wbi10nut","slide":5,"text":"Big Idea: Designed Experiences","textPreview":"Big Idea: Designed Experiences","textChars":30,"textLines":1,"bbox":[72,52,760,74]}
+{"kind":"textbox","id":"sh/vqp0rid8","slide":5,"text":"Games and animations are built from choices that shape what people notice","textPreview":"Games and animations are built from choices that shape what people notice","textChars":73,"textLines":1,"bbox":[72,116,700,42]}
+{"kind":"textbox","id":"sh/upgjydcn","slide":5,"text":"Player action","textPreview":"Player action","textChars":13,"textLines":1,"bbox":[92,182,240,30]}
+{"kind":"textbox","id":"sh/9o7ip8v2","slide":5,"text":"What the player does","textPreview":"What the player does","textChars":20,"textLines":1,"bbox":[346,184,430,32]}
+{"kind":"textbox","id":"sh/8ny1wnux","slide":5,"text":"Goal","textPreview":"Goal","textChars":4,"textLines":1,"bbox":[92,248,240,30]}
+{"kind":"textbox","id":"sh/nmp0nidc","slide":5,"text":"What the player tries to achieve","textPreview":"What the player tries to achieve","textChars":32,"textLines":1,"bbox":[346,250,430,32]}
+{"kind":"textbox","id":"sh/mlgjudcr","slide":5,"text":"Rule","textPreview":"Rule","textChars":4,"textLines":1,"bbox":[92,314,240,30]}
+{"kind":"textbox","id":"sh/lk7il8v6","slide":5,"text":"What limits or guides the action","textPreview":"What limits or guides the action","textChars":32,"textLines":1,"bbox":[346,316,430,32]}
+{"kind":"textbox","id":"sh/0jyhs3ul","slide":5,"text":"Feedback","textPreview":"Feedback","textChars":8,"textLines":1,"bbox":[92,380,240,30]}
+{"kind":"textbox","id":"sh/u147e1sr","slide":5,"text":"How the work tells the audience what changed","textPreview":"How the work tells the audience what changed","textChars":44,"textLines":1,"bbox":[346,382,430,32]}
+{"kind":"textbox","id":"sh/f2x8769c","slide":5,"text":"Feeling","textPreview":"Feeling","textChars":7,"textLines":1,"bbox":[92,446,240,30]}
+{"kind":"textbox","id":"sh/g369gbax","slide":5,"text":"The response the design is trying to create","textPreview":"The response the design is trying to create","textChars":43,"textLines":1,"bbox":[346,448,430,32]}
+{"kind":"shape","id":"sh/6d47a1sv","slide":5,"bbox":[72,536,1136,94]}
+{"kind":"textbox","id":"sh/7yd83m90","slide":5,"text":"Discussion prompt","textPreview":"Discussion prompt","textChars":17,"textLines":1,"bbox":[100,550,290,30]}
+{"kind":"textbox","id":"sh/szmpcral","slide":5,"text":"When you play or watch something, what makes you say I understand what to do?","textPreview":"When you play or watch something, what makes you say I understand what to do?","textChars":77,"textLines":1,"bbox":[100,582,1030,38]}
+{"kind":"textbox","id":"sh/t0vq5wr6","slide":5,"text":"Game Animation & Development Studio  5","textPreview":"Game Animation & Development Studio  5","textChars":38,"textLines":1,"bbox":[72,666,560,30]}
+{"kind":"image","id":"im/mtw3qtoj","slide":5,"name":"","alt":"Godot editor showing a playable game screen","bbox":[820,176,360,300]}
+{"kind":"notes","id":"nt/vla6g0","slide":5,"text":"Keep this slide interactive. Ask for examples from students' games, shows, apps, or videos.\nImage source: local Godot documentation image editor_intro_workspace_game.webp.\nSource context: Lesson 1 vocabulary in StudioLevel1_Explorer_Game_Foundations_Instruction_Manual.md."}
+{"kind":"slide","id":"sl/rvvndm","slide":6,"title":"Big Idea: Find It, Fix It, Play It","textShapes":14}
+{"kind":"textbox","id":"sh/fa5gnm9o","slide":6,"text":"Big Idea: Find It, Fix It, Play It","textPreview":"Big Idea: Find It, Fix It, Play It","textChars":34,"textLines":1,"bbox":[72,52,760,74]}
+{"kind":"textbox","id":"sh/gbehg7q9","slide":6,"text":"The first projects start with small changes to working or partly working examples","textPreview":"The first projects start with small changes to working or partly working examples","textChars":81,"textLines":1,"bbox":[72,116,700,42]}
+{"kind":"shape","id":"sh/hc7ypcre","slide":6,"bbox":[74,198,246,260]}
+{"kind":"textbox","id":"sh/2dgzih8z","slide":6,"text":"Find","textPreview":"Find","textChars":4,"textLines":1,"bbox":[94,224,196,44]}
+{"kind":"textbox","id":"sh/3ypgrm9k","slide":6,"text":"What is unclear, missing, unfair, broken, or weak?","textPreview":"What is unclear, missing, unfair, broken, or weak?","textChars":50,"textLines":1,"bbox":[94,294,198,120]}
+{"kind":"shape","id":"sh/4zyhkrq5","slide":6,"bbox":[370,198,246,260]}
+{"kind":"textbox","id":"sh/p07itw7q","slide":6,"text":"Fix","textPreview":"Fix","textChars":3,"textLines":1,"bbox":[390,224,196,44]}
+{"kind":"textbox","id":"sh/q1gzm18b","slide":6,"text":"Change one thing that a player can notice.","textPreview":"Change one thing that a player can notice.","textChars":42,"textLines":1,"bbox":[390,294,198,120]}
+{"kind":"shape","id":"sh/r2p0v6pw","slide":6,"bbox":[666,198,246,260]}
+{"kind":"textbox","id":"sh/nmx43alk","slide":6,"text":"Test","textPreview":"Test","textChars":4,"textLines":1,"bbox":[686,224,196,44]}
+{"kind":"textbox","id":"sh/mlona54z","slide":6,"text":"Let another person try it before you explain it.","textPreview":"Let another person try it before you explain it.","textChars":48,"textLines":1,"bbox":[686,294,198,120]}
+{"kind":"shape","id":"sh/98fm5k3q","slide":6,"bbox":[962,198,246,260]}
+{"kind":"textbox","id":"sh/on65cfm5","slide":6,"text":"Explain","textPreview":"Explain","textChars":7,"textLines":1,"bbox":[982,224,196,44]}
+{"kind":"textbox","id":"sh/zid4zalo","slide":6,"text":"Describe how the player experience changed.","textPreview":"Describe how the player experience changed.","textChars":43,"textLines":1,"bbox":[982,294,198,120]}
+{"kind":"textbox","id":"sh/eh4n6543","slide":6,"text":"First task mindset: one small improvement, tested with a real person.","textPreview":"First task mindset: one small improvement, tested with a real person.","textChars":69,"textLines":1,"bbox":[100,484,1000,44]}
+{"kind":"shape","id":"sh/1kvm103u","slide":6,"bbox":[72,542,1136,94]}
+{"kind":"textbox","id":"sh/0jm58vm9","slide":6,"text":"Discussion prompt","textPreview":"Discussion prompt","textChars":17,"textLines":1,"bbox":[100,556,290,30]}
+{"kind":"textbox","id":"sh/jehobuls","slide":6,"text":"What kind of problem do you notice first in games: controls, fairness, story, visuals, sound, or instructions?","textPreview":"What kind of problem do you notice first in games: controls, fairness, story, visuals, sound, or instructions?","textChars":110,"textLines":1,"bbox":[100,588,1030,38]}
+{"kind":"textbox","id":"sh/yd8nip47","slide":6,"text":"Game Animation & Development Studio  6","textPreview":"Game Animation & Development Studio  6","textChars":38,"textLines":1,"bbox":[72,666,560,30]}
+{"kind":"notes","id":"nt/rvvndm","slide":6,"text":"This is the course pathway in plain language.\nSource context: Core Teaching Principle and Year Goal in Academic_Year_Course_Outline_Find_It_Fix_It.md."}
+{"kind":"slide","id":"sl/zpo4x4","slide":7,"title":"Starting Pathways","textShapes":15}
+{"kind":"textbox","id":"sh/9kza1c7m","slide":7,"text":"Starting Pathways","textPreview":"Starting Pathways","textChars":17,"textLines":1,"bbox":[72,52,760,74]}
+{"kind":"textbox","id":"sh/mhob6x8v","slide":7,"text":"Students can begin at different levels and still share the same studio rhythm","textPreview":"Students can begin at different levels and still share the same studio rhythm","textChars":77,"textLines":1,"bbox":[72,116,700,42]}
+{"kind":"textbox","id":"sh/nihsz2pg","slide":7,"text":"Explorer","textPreview":"Explorer","textChars":8,"textLines":1,"bbox":[118,174,190,34]}
+{"kind":"shape","id":"sh/wnqtcrqx","slide":7,"bbox":[326,179,5,30]}
+{"kind":"textbox","id":"sh/h8za5c7i","slide":7,"text":"Modify and explain a simple 2D game prototype.","textPreview":"Modify and explain a simple 2D game prototype.","textChars":46,"textLines":1,"bbox":[360,175,720,36]}
+{"kind":"textbox","id":"sh/al8bah87","slide":7,"text":"Builder","textPreview":"Builder","textChars":7,"textLines":1,"bbox":[118,249,190,34]}
+{"kind":"shape","id":"sh/vmhs3mps","slide":7,"bbox":[326,254,5,30]}
+{"kind":"textbox","id":"sh/4batgr69","slide":7,"text":"Repair, tune, and extend an arcade-style game.","textPreview":"Repair, tune, and extend an arcade-style game.","textChars":46,"textLines":1,"bbox":[360,250,720,36]}
+{"kind":"textbox","id":"sh/5cja9w7u","slide":7,"text":"Designer","textPreview":"Designer","textChars":8,"textLines":1,"bbox":[118,324,190,34]}
+{"kind":"shape","id":"sh/hszex43i","slide":7,"bbox":[326,329,5,30]}
+{"kind":"textbox","id":"sh/grqdozmd","slide":7,"text":"Improve story, UI, feedback, systems, and user experience.","textPreview":"Improve story, UI, feedback, systems, and user experience.","textChars":58,"textLines":1,"bbox":[360,325,720,36]}
+{"kind":"textbox","id":"sh/vqhwvu5s","slide":7,"text":"Developer","textPreview":"Developer","textChars":9,"textLines":1,"bbox":[118,399,190,34]}
+{"kind":"shape","id":"sh/up8vm947","slide":7,"bbox":[326,404,5,30]}
+{"kind":"textbox","id":"sh/5wje1o3u","slide":7,"text":"Contribute to a team project with a defined production role.","textPreview":"Contribute to a team project with a defined production role.","textChars":60,"textLines":1,"bbox":[360,400,720,36]}
+{"kind":"textbox","id":"sh/4vqxsjm9","slide":7,"text":"Director","textPreview":"Director","textChars":8,"textLines":1,"bbox":[118,474,190,34]}
+{"kind":"shape","id":"sh/3uhwzelo","slide":7,"bbox":[326,479,5,30]}
+{"kind":"textbox","id":"sh/it8vq943","slide":7,"text":"Prepare a polished demo, pitch, and documentation.","textPreview":"Prepare a polished demo, pitch, and documentation.","textChars":50,"textLines":1,"bbox":[360,475,720,36]}
+{"kind":"shape","id":"sh/l0fepkna","slide":7,"bbox":[72,548,1136,94]}
+{"kind":"textbox","id":"sh/kz6dgfm5","slide":7,"text":"Discussion prompt","textPreview":"Discussion prompt","textChars":17,"textLines":1,"bbox":[100,562,290,30]}
+{"kind":"textbox","id":"sh/c3adwzu1","slide":7,"text":"Where do you think you are starting, and what would help you move up one level?","textPreview":"Where do you think you are starting, and what would help you move up one level?","textChars":79,"textLines":1,"bbox":[100,594,1030,38]}
+{"kind":"textbox","id":"sh/x4je5kv6","slide":7,"text":"Game Animation & Development Studio  7","textPreview":"Game Animation & Development Studio  7","textChars":38,"textLines":1,"bbox":[72,666,560,30]}
+{"kind":"notes","id":"nt/zpo4x4","slide":7,"text":"Do not make placement feel fixed. Emphasize starting point, not ranking.\nSource context: Studio Level Fit table in Academic_Year_Course_Outline_Find_It_Fix_It.md."}
+{"kind":"slide","id":"sl/lw5j2a","slide":8,"title":"First Conversation","textShapes":9}
+{"kind":"textbox","id":"sh/7ehgr21c","slide":8,"text":"First Conversation","textPreview":"First Conversation","textChars":18,"textLines":1,"bbox":[72,54,680,70]}
+{"kind":"textbox","id":"sh/8fqh07ix","slide":8,"text":"Use these questions to learn who is in the room.","textPreview":"Use these questions to learn who is in the room.","textChars":48,"textLines":1,"bbox":[74,122,760,42]}
+{"kind":"textbox","id":"sh/tgzytcj2","slide":8,"text":"What games, animations, tools, or stories have shaped your taste?","textPreview":"What games, animations, tools, or stories have shaped your taste?","textChars":65,"textLines":1,"bbox":[90,204,790,58]}
+{"kind":"textbox","id":"sh/y9ozux0f","slide":8,"text":"What have you made before, even if it was small or unfinished?","textPreview":"What have you made before, even if it was small or unfinished?","textChars":62,"textLines":1,"bbox":[90,286,790,58]}
+{"kind":"textbox","id":"sh/jaxgn210","slide":8,"text":"What do you want to learn first: art, code, story, level design, sound, UI, or production?","textPreview":"What do you want to learn first: art, code, story, level design, sound, UI, or production?","textChars":90,"textLines":1,"bbox":[90,368,790,58]}
+{"kind":"textbox","id":"sh/kb6hw7il","slide":8,"text":"What access do you have to a laptop, files, and Google Classroom?","textPreview":"What access do you have to a laptop, files, and Google Classroom?","textChars":65,"textLines":1,"bbox":[90,450,790,58]}
+{"kind":"shape","id":"sh/lczypcj6","slide":8,"bbox":[922,212,240,304]}
+{"kind":"textbox","id":"sh/a5ozqx0j","slide":8,"text":"Next step","textPreview":"Next step","textChars":9,"textLines":1,"bbox":[948,240,190,38]}
+{"kind":"textbox","id":"sh/b6xgji14","slide":8,"text":"Join Google Classroom, complete the interest form, and bring one idea or example to the next session.","textPreview":"Join Google Classroom, complete the interest form, and bring one idea or example to the next session.","textChars":101,"textLines":1,"bbox":[948,296,186,170]}
+{"kind":"textbox","id":"sh/v2t4vatw","slide":8,"text":"Thank you","textPreview":"Thank you","textChars":9,"textLines":1,"bbox":[78,608,400,52]}
+{"kind":"notes","id":"nt/lw5j2a","slide":8,"text":"Let students answer in pairs first if the room is quiet.\nSource context: Orientation And Placement Meeting outputs in Wednesday_Studio_Session_Types.md."}
