@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An offline classroom auto-runner demo built with HTML Canvas and vanilla JavaScript.">
+  <meta name="theme-color" content="#131315">
+  <title>Pulse Run</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23131315'/%3E%3Cpath d='M9 46 24 18l10 19 8-14 13 23Z' fill='%23ffcc33'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- The shell keeps the interface centred and gives the game a maximum width. -->
+  <main class="game-shell">
+    <!-- Controls outside the Canvas stay accessible to keyboards and screen readers. -->
+    <header class="topbar">
+      <div class="brand" aria-label="Pulse Run">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Pulse Run</span>
+      </div>
+
+      <div class="topbar-actions">
+        <button id="pauseButton" class="icon-button" type="button" aria-label="Pause game" title="Pause (P)" disabled>Pause</button>
+        <button id="muteButton" class="icon-button" type="button" aria-pressed="false" aria-label="Mute sound" title="Mute sound (M)">Sound on</button>
+      </div>
+    </header>
+
+    <!-- The stage contains the status display, Canvas, overlays, and control reminder. -->
+    <section class="game-stage" aria-labelledby="gameTitle">
+      <h1 id="gameTitle" class="sr-only">Pulse Run offline auto-runner</h1>
+
+      <!-- The HUD uses HTML so progress and state remain readable outside Canvas. -->
+      <div class="hud" aria-label="Game status">
+        <div class="status-group">
+          <span id="stateLabel" class="status-label">Ready</span>
+          <span id="attemptLabel" class="attempt-label">Attempt 1</span>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <span id="progressFill" class="progress-fill"></span>
+        </div>
+        <output id="progressLabel" class="progress-label" aria-label="Level progress">0%</output>
+      </div>
+
+      <!-- JavaScript draws the moving game world into this Canvas. -->
+      <div id="canvasWrap" class="canvas-wrap">
+        <canvas id="gameCanvas" width="960" height="540" tabindex="0" aria-label="Pulse Run game area. Press Space or Up Arrow to jump."></canvas>
+
+        <!-- Panels sit above the Canvas and appear only in the matching game state. -->
+        <div id="startPanel" class="game-panel">
+          <p class="eyebrow">Level 01</p>
+          <h2>First Circuit</h2>
+          <p>Clear the course with one move: jump.</p>
+          <button id="startButton" class="primary-button" type="button">Start run</button>
+          <p class="key-hint"><kbd>Space</kbd> <kbd>Up</kbd> click or tap</p>
+        </div>
+
+        <div id="resultPanel" class="game-panel" hidden>
+          <p id="resultEyebrow" class="eyebrow">Run ended</p>
+          <h2 id="resultTitle">Try again</h2>
+          <p id="resultMessage">Watch the obstacle and jump a little earlier.</p>
+          <button id="restartButton" class="primary-button" type="button">Restart</button>
+          <p class="key-hint"><kbd>Space</kbd> to restart</p>
+        </div>
+
+        <div id="pausePanel" class="pause-panel" hidden>
+          <span>Paused</span>
+          <small>Press P to continue</small>
+        </div>
+      </div>
+
+      <!-- This short reminder remains visible while the player is running. -->
+      <footer class="control-strip">
+        <span><strong>Jump</strong> Space / Up / Click</span>
+        <span><strong>Pause</strong> P</span>
+        <span><strong>Hitboxes</strong> D</span>
+      </footer>
+      <!-- JavaScript updates this hidden live region for assistive technology. -->
+      <p id="liveStatus" class="sr-only" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <!-- A classic script keeps the game compatible with direct file:// launching. -->
+  <script src="js/game.js"></script>
+</body>
+</html>
