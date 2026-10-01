@@ -20,6 +20,7 @@
       </div>
 
       <div class="topbar-actions">
+        <button id="editorButton" class="icon-button" type="button" aria-pressed="false" aria-label="Enter editor mode" title="Editor mode (E)">Editor</button>
         <button id="pauseButton" class="icon-button" type="button" aria-label="Pause game" title="Pause (P)" disabled>Pause</button>
         <button id="muteButton" class="icon-button" type="button" aria-pressed="false" aria-label="Mute sound" title="Mute sound (M)">Sound on</button>
       </div>
@@ -72,14 +73,74 @@
       <footer class="control-strip">
         <span><strong>Jump</strong> Space / Up / Click</span>
         <span><strong>Pause</strong> P</span>
+        <span><strong>Editor</strong> E</span>
         <span><strong>Hitboxes</strong> D</span>
       </footer>
+
+      <section id="editorPanel" class="editor-panel" aria-label="Level editor" hidden>
+        <div class="editor-toolbar">
+          <button id="addSpikeButton" class="icon-button" type="button">Add spike</button>
+          <button id="addBlockButton" class="icon-button" type="button">Add block</button>
+          <button id="duplicateObjectButton" class="icon-button" type="button">Duplicate</button>
+          <button id="evenSpikeSpacingButton" class="icon-button" type="button">Even spike spacing</button>
+          <button id="deleteObjectButton" class="icon-button" type="button">Delete</button>
+        </div>
+
+        <div class="editor-grid">
+          <div class="editor-list-panel">
+            <h2>Objects</h2>
+            <div id="objectList" class="object-list" role="listbox" aria-label="Level objects"></div>
+          </div>
+
+          <form id="propertyForm" class="property-panel">
+            <h2>Properties</h2>
+            <label>
+              Type
+              <select id="objectTypeInput">
+                <option value="spike">Spike</option>
+                <option value="block">Block</option>
+              </select>
+            </label>
+            <label>
+              X
+              <input id="objectXInput" type="number" min="0" step="10">
+            </label>
+            <label>
+              Width
+              <input id="objectWidthInput" type="number" min="20" step="2">
+            </label>
+            <label>
+              Height
+              <input id="objectHeightInput" type="number" min="20" step="2">
+            </label>
+            <div class="check-grid">
+              <label><input id="deadlyInput" type="checkbox"> Deadly</label>
+              <label><input id="solidInput" type="checkbox"> Solid</label>
+              <label><input id="canLandOnInput" type="checkbox"> Can land on</label>
+              <label><input id="deadlySidesInput" type="checkbox"> Deadly sides</label>
+            </div>
+          </form>
+        </div>
+
+        <div class="timeline-panel">
+          <div id="editorTimeline" class="editor-timeline" aria-label="Level timeline"></div>
+        </div>
+
+        <div class="io-panel">
+          <div class="io-buttons">
+            <button id="exportLevelButton" class="icon-button" type="button">Export JSON</button>
+            <button id="importLevelButton" class="icon-button" type="button">Import JSON</button>
+          </div>
+          <textarea id="levelJsonInput" spellcheck="false" aria-label="Level JSON"></textarea>
+        </div>
+      </section>
       <!-- JavaScript updates this hidden live region for assistive technology. -->
       <p id="liveStatus" class="sr-only" aria-live="polite"></p>
     </section>
   </main>
 
-  <!-- A classic script keeps the game compatible with direct file:// launching. -->
+  <!-- Classic scripts keep the game compatible with direct file:// launching. -->
+  <script src="js/levels.js"></script>
   <script src="js/game.js"></script>
 </body>
 </html>

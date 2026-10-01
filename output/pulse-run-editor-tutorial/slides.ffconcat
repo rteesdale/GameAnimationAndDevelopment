@@ -1,0 +1,18 @@
+ffconcat version 1.0
+file 'D:/0_AnimationAndGameDesign/output/pulse-run-editor-tutorial/frames/01-01-title.png'
+duration 3
+file 'D:/0_AnimationAndGameDesign/output/pulse-run-editor-tutorial/frames/02-02-editor-mode.png'
+duration 4
+file 'D:/0_AnimationAndGameDesign/output/pulse-run-editor-tutorial/frames/03-03-add.png'
+duration 4
+file 'D:/0_AnimationAndGameDesign/output/pulse-run-editor-tutorial/frames/04-04-properties.png'
+duration 5
+file 'D:/0_AnimationAndGameDesign/output/pulse-run-editor-tutorial/frames/05-05-spacing.png'
+duration 5
+file 'D:/0_AnimationAndGameDesign/output/pulse-run-editor-tutorial/frames/06-06-timeline.png'
+duration 4
+file 'D:/0_AnimationAndGameDesign/output/pulse-run-editor-tutorial/frames/07-07-export.png'
+duration 4
+file 'D:/0_AnimationAndGameDesign/output/pulse-run-editor-tutorial/frames/08-08-playtest.png'
+duration 5
+file 'D:/0_AnimationAndGameDesign/output/pulse-run-editor-tutorial/frames/08-08-playtest.png'

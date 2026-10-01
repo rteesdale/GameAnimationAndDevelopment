@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#131315"/>
+  <rect x="0" y="0" width="1280" height="88" fill="#202129"/>
+  <rect x="52" y="28" width="34" height="34" transform="rotate(45 69 45)" fill="#ffcc33"/>
+  <rect x="66" y="42" width="34" height="34" transform="rotate(45 83 59)" fill="#ff5b57"/>
+  <text x="112" y="58" font-family="Arial, sans-serif" font-size="30" font-weight="800" fill="#f4f1e8">Pulse Run Level Editor</text>
+  <text x="64" y="145" font-family="Arial, sans-serif" font-size="52" font-weight="900" fill="#ffcc33">5. Use the timeline</text>
+  <text x="68" y="194" font-family="Arial, sans-serif" font-size="27" fill="#c7c2b6">The timeline shows where objects appear during the run.</text>
+  <g font-family="Arial, sans-serif">
+    <text x="82" y="260" font-size="30" fill="#f4f1e8">• Click a marker to select an</text>
+<text x="82" y="298" font-size="30" fill="#f4f1e8">  object.</text>
+<text x="82" y="354" font-size="30" fill="#f4f1e8">• Drag a marker to move it.</text>
+<text x="82" y="410" font-size="30" fill="#f4f1e8">• Use Arrow Left or Right for</text>
+<text x="82" y="448" font-size="30" fill="#f4f1e8">  careful nudging.</text>
+    
+    <g transform="translate(720 185)">
+      <rect x="0" y="0" width="520" height="420" rx="10" fill="#15161b" stroke="#5f626e" stroke-width="2"/>
+      <text x="24" y="42" font-size="24" fill="#ffcc33" font-weight="800">Level editor</text>
+      <rect x="24" y="70" width="120" height="42" rx="6" fill="#252434" stroke="#45d9e8"/>
+      <text x="44" y="98" font-size="18" fill="#f4f1e8">Add spike</text>
+      <rect x="156" y="70" width="118" height="42" rx="6" fill="#252434" stroke="#45d9e8"/>
+      <text x="177" y="98" font-size="18" fill="#f4f1e8">Add block</text>
+      <rect x="286" y="70" width="184" height="42" rx="6" fill="#3a3013" stroke="#ffcc33"/>
+      <text x="305" y="98" font-size="18" fill="#ffcc33">Even spike spacing</text>
+
+      <rect x="24" y="130" width="190" height="210" rx="8" fill="#202129" stroke="#444957"/>
+      <text x="42" y="158" font-size="18" fill="#ffcc33">Objects</text>
+      <rect x="42" y="164" width="144" height="34" rx="6" fill="#3a3013" stroke="#ffcc33"/>
+      <text x="55" y="187" font-size="16" fill="#ffcc33">1. spike at 980</text>
+      <text x="55" y="233" font-size="16" fill="#f4f1e8">2. block at 2150</text>
+      <text x="55" y="279" font-size="16" fill="#f4f1e8">3. spike at 2620</text>
+
+      <rect x="235" y="130" width="250" height="210" rx="8" fill="#202129" stroke="#444957"/>
+      <text x="253" y="158" font-size="18" fill="#ffcc33">Properties</text>
+      <text x="253" y="194" font-size="16" fill="#aaa">X</text>
+      <rect x="310" y="171" width="90" height="32" rx="5" fill="#131315" stroke="#5f626e"/>
+      <text x="331" y="194" font-size="16" fill="#f4f1e8">980</text>
+      <text x="253" y="238" font-size="16" fill="#aaa">Width</text>
+      <rect x="310" y="215" width="90" height="32" rx="5" fill="#131315" stroke="#5f626e"/>
+      <text x="338" y="238" font-size="16" fill="#f4f1e8">44</text>
+      <text x="253" y="282" font-size="16" fill="#aaa">Height</text>
+      <rect x="310" y="259" width="90" height="32" rx="5" fill="#131315" stroke="#5f626e"/>
+      <text x="338" y="282" font-size="16" fill="#f4f1e8">48</text>
+      <rect x="253" y="307" width="16" height="16" fill="#ffcc33"/>
+      <text x="279" y="321" font-size="16" fill="#f4f1e8">Deadly</text>
+
+      <rect x="24" y="360" width="460" height="40" rx="6" fill="#131315" stroke="#444957"/>
+      <polygon points="74,390 90,370 106,390" fill="#ff5b57" stroke="#f4f1e8"/>
+      <rect x="196" y="371" width="32" height="19" fill="#8075ff" stroke="#f4f1e8"/>
+      <polygon points="330,390 346,370 362,390" fill="#ff5b57" stroke="#f4f1e8"/>
+      <line x1="24" y1="400" x2="484" y2="400" stroke="#45d9e8" stroke-width="3"/>
+    </g>
+  </g>
+  <text x="64" y="668" font-family="Arial, sans-serif" font-size="22" fill="#82dc73">Timeline editing is best for fixing timing.</text>
+</svg>

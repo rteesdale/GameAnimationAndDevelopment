@@ -101,6 +101,33 @@ Its core concepts are:
 - Ready, playing, lost, and won states.
 - Testing and tuning values to change the player's experience.
 
+## Editor-Ready Level And Object Policy
+
+Student feedback from the first Pulse Run classroom use showed that learners quickly want authoring tools once they understand that spikes, blocks, and level timing are stored as data. Future Pulse Run work should therefore treat a simple level editor as part of the intended production pathway, not as an unrelated bonus feature.
+
+The first implementation may still begin with hand-written level data, but the data model must be prepared for editing. Spikes, blocks, and later objects should be stored as records with stable IDs, type, position, dimensions, and behavior settings. Drawing, collision, and editing code should read from the same records so that changes made in an editor appear immediately in the running game.
+
+For the next Pulse Run production cycle, the editor direction is:
+
+- Keep the playable game and editor in the same offline project folder.
+- Use a shared `level` object or equivalent structure rather than a fixed obstacle list hidden inside the game loop.
+- Allow spikes and blocks to be added, selected, duplicated, deleted, and adjusted without rewriting game logic.
+- Support real-time updates to position, width, height, and basic behavior settings while the game redraws.
+- Begin with a clear object list and property panel before attempting drag-and-drop editing.
+- Add canvas or timeline editing only after the property-panel workflow is reliable.
+- Provide import/export of level JSON or a similarly readable format so students can save, share, and compare designs.
+- Preserve forgiving hitboxes and debug-hitbox visibility so students can see the difference between visual art and collision logic.
+- Treat object behavior as configurable data where practical, for example `deadly`, `solid`, `canLandOn`, or `deadlySides`.
+
+The first supported behavior configuration should focus on spikes and blocks:
+
+| Object | Minimum Editable Values | Minimum Behavior Settings |
+|---|---|---|
+| Spike | x position, width, height | deadly or safe |
+| Block | x position, width, height | solid, can land on, deadly sides |
+
+This editor requirement should strengthen the teaching sequence rather than replace it. Students should first understand the game loop and level data, then use the editor to revise a short level segment, test the result, and explain how the changed data affected the player's experience.
+
 ## First Playable Auto-Runner Level
 
 The first level is a learning laboratory, not a full reproduction of the commercial game. It should last approximately 30 to 45 seconds and use one principal action: jump.

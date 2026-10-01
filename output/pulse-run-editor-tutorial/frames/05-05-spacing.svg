@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#131315"/>
+  <rect x="0" y="0" width="1280" height="88" fill="#202129"/>
+  <rect x="52" y="28" width="34" height="34" transform="rotate(45 69 45)" fill="#ffcc33"/>
+  <rect x="66" y="42" width="34" height="34" transform="rotate(45 83 59)" fill="#ff5b57"/>
+  <text x="112" y="58" font-family="Arial, sans-serif" font-size="30" font-weight="800" fill="#f4f1e8">Pulse Run Level Editor</text>
+  <text x="64" y="145" font-family="Arial, sans-serif" font-size="52" font-weight="900" fill="#ffcc33">4. Use even spike spacing</text>
+  <text x="68" y="194" font-family="Arial, sans-serif" font-size="27" fill="#c7c2b6">Select a spike in a nearby group, then press Even spike spacing.</text>
+  <g font-family="Arial, sans-serif">
+    <text x="82" y="260" font-size="30" fill="#f4f1e8">• Works with 2 or more nearby</text>
+<text x="82" y="298" font-size="30" fill="#f4f1e8">  spikes.</text>
+<text x="82" y="354" font-size="30" fill="#f4f1e8">• First and last spikes stay fixed.</text>
+<text x="82" y="410" font-size="30" fill="#f4f1e8">• Middle spikes form a rhythm.</text>
+    
+    <g transform="translate(115 430)">
+      <rect x="0" y="0" width="1035" height="90" rx="8" fill="#15161b" stroke="#444957"/>
+      <line x1="30" y1="66" x2="1005" y2="66" stroke="#45d9e8" stroke-width="4"/>
+      <polygon points="150,66 172,22 194,66" fill="#ff5b57" stroke="#f4f1e8" stroke-width="3"/>
+      <polygon points="220,66 242,22 264,66" fill="#ff5b57" stroke="#f4f1e8" stroke-width="3"/>
+      <polygon points="290,66 312,22 334,66" fill="#ff5b57" stroke="#f4f1e8" stroke-width="3"/>
+      <rect x="500" y="18" width="90" height="48" fill="#8075ff" stroke="#f4f1e8" stroke-width="3"/>
+      <polygon points="760,66 782,22 804,66" fill="#82dc73" stroke="#f4f1e8" stroke-width="3"/>
+      <text x="132" y="86" font-size="16" fill="#aaa">even rhythm</text>
+      <text x="730" y="86" font-size="16" fill="#aaa">safe spike option</text>
+    </g>
+  </g>
+  <text x="64" y="668" font-family="Arial, sans-serif" font-size="22" fill="#82dc73">This helps players read the pattern before they jump.</text>
+</svg>

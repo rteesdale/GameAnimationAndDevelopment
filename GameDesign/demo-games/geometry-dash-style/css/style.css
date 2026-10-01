@@ -107,6 +107,12 @@ canvas:focus-visible {
   color: var(--cyan);
 }
 
+.icon-button[aria-pressed="true"] {
+  border-color: var(--yellow);
+  color: var(--yellow);
+  background: rgba(255, 204, 51, 0.12);
+}
+
 .icon-button:disabled {
   cursor: not-allowed;
   opacity: 0.4;
@@ -306,6 +312,189 @@ kbd {
   color: var(--paper);
 }
 
+.editor-panel {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(19, 19, 21, 0.8);
+}
+
+.editor-panel[hidden] {
+  display: none;
+}
+
+.editor-toolbar,
+.io-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.editor-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(280px, 1.2fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.editor-list-panel,
+.property-panel,
+.timeline-panel,
+.io-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(244, 241, 232, 0.045);
+}
+
+.editor-list-panel,
+.property-panel {
+  min-height: 230px;
+  padding: 12px;
+}
+
+.editor-list-panel h2,
+.property-panel h2 {
+  margin: 0 0 10px;
+  color: var(--yellow);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.object-list {
+  display: grid;
+  gap: 6px;
+  max-height: 220px;
+  overflow: auto;
+}
+
+.object-row {
+  width: 100%;
+  min-height: 36px;
+  border: 1px solid rgba(244, 241, 232, 0.18);
+  border-radius: 6px;
+  padding: 0 10px;
+  color: var(--paper);
+  background: rgba(19, 19, 21, 0.42);
+  text-align: left;
+  cursor: pointer;
+}
+
+.object-row[aria-selected="true"] {
+  border-color: var(--yellow);
+  color: var(--yellow);
+  background: rgba(255, 204, 51, 0.12);
+}
+
+.property-panel {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(80px, 1fr));
+  gap: 10px;
+}
+
+.property-panel h2,
+.check-grid {
+  grid-column: 1 / -1;
+}
+
+.property-panel label {
+  display: grid;
+  gap: 5px;
+  color: rgba(244, 241, 232, 0.68);
+  font-size: 0.76rem;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.property-panel input,
+.property-panel select,
+.io-panel textarea {
+  width: 100%;
+  border: 1px solid rgba(244, 241, 232, 0.22);
+  border-radius: 6px;
+  color: var(--paper);
+  background: rgba(19, 19, 21, 0.72);
+  font: inherit;
+}
+
+.property-panel input,
+.property-panel select {
+  min-height: 38px;
+  padding: 0 8px;
+}
+
+.check-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(100px, 1fr));
+  gap: 8px;
+}
+
+.check-grid label {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(244, 241, 232, 0.14);
+  border-radius: 6px;
+  padding: 0 8px;
+  background: rgba(19, 19, 21, 0.36);
+  text-transform: none;
+}
+
+.timeline-panel {
+  margin-top: 12px;
+  padding: 12px;
+}
+
+.editor-timeline {
+  position: relative;
+  height: 56px;
+  border: 1px solid rgba(244, 241, 232, 0.2);
+  border-radius: 6px;
+  background:
+    linear-gradient(90deg, rgba(244, 241, 232, 0.12) 1px, transparent 1px) 0 0 / 10% 100%,
+    rgba(19, 19, 21, 0.62);
+  touch-action: none;
+}
+
+.timeline-marker {
+  position: absolute;
+  top: 10px;
+  width: 28px;
+  height: 34px;
+  border: 2px solid var(--paper);
+  border-radius: 6px;
+  color: var(--ink);
+  background: var(--cyan);
+  font-size: 0.76rem;
+  font-weight: 900;
+  transform: translateX(-50%);
+  cursor: grab;
+}
+
+.timeline-marker[data-type="spike"] {
+  background: var(--coral);
+}
+
+.timeline-marker[aria-selected="true"] {
+  border-color: var(--yellow);
+  box-shadow: 0 0 0 3px rgba(255, 204, 51, 0.24);
+}
+
+.io-panel {
+  margin-top: 12px;
+  padding: 12px;
+}
+
+.io-panel textarea {
+  min-height: 118px;
+  margin-top: 10px;
+  padding: 10px;
+  resize: vertical;
+  font-family: "Cascadia Mono", Consolas, monospace;
+  font-size: 0.78rem;
+}
+
 .sr-only {
   /* Content remains available to screen readers without appearing visually. */
   position: absolute;
@@ -366,6 +555,16 @@ kbd {
 
   .control-strip strong {
     display: block;
+  }
+
+  .editor-grid,
+  .property-panel,
+  .check-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar {
+    flex-wrap: wrap;
   }
 }
 

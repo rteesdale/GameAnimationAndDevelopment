@@ -10,6 +10,7 @@
   const pausePanel = document.querySelector("#pausePanel");
   const startButton = document.querySelector("#startButton");
   const restartButton = document.querySelector("#restartButton");
+  const editorButton = document.querySelector("#editorButton");
   const pauseButton = document.querySelector("#pauseButton");
   const muteButton = document.querySelector("#muteButton");
   const stateLabel = document.querySelector("#stateLabel");
@@ -20,6 +21,25 @@
   const resultTitle = document.querySelector("#resultTitle");
   const resultMessage = document.querySelector("#resultMessage");
   const liveStatus = document.querySelector("#liveStatus");
+  const editorPanel = document.querySelector("#editorPanel");
+  const addSpikeButton = document.querySelector("#addSpikeButton");
+  const addBlockButton = document.querySelector("#addBlockButton");
+  const duplicateObjectButton = document.querySelector("#duplicateObjectButton");
+  const evenSpikeSpacingButton = document.querySelector("#evenSpikeSpacingButton");
+  const deleteObjectButton = document.querySelector("#deleteObjectButton");
+  const objectList = document.querySelector("#objectList");
+  const objectTypeInput = document.querySelector("#objectTypeInput");
+  const objectXInput = document.querySelector("#objectXInput");
+  const objectWidthInput = document.querySelector("#objectWidthInput");
+  const objectHeightInput = document.querySelector("#objectHeightInput");
+  const deadlyInput = document.querySelector("#deadlyInput");
+  const solidInput = document.querySelector("#solidInput");
+  const canLandOnInput = document.querySelector("#canLandOnInput");
+  const deadlySidesInput = document.querySelector("#deadlySidesInput");
+  const editorTimeline = document.querySelector("#editorTimeline");
+  const exportLevelButton = document.querySelector("#exportLevelButton");
+  const importLevelButton = document.querySelector("#importLevelButton");
+  const levelJsonInput = document.querySelector("#levelJsonInput");
 
   // The game uses one logical 960 x 540 coordinate system. CSS may make the
   // Canvas look larger or smaller, but game positions keep these same values.
@@ -27,11 +47,17 @@
 
   // Physics values use logical pixels and seconds. A negative vertical speed
   // moves upward because Canvas y coordinates increase toward the bottom.
-  const PLAYER = { x: 152, size: 42, gravity: 2200, jumpSpeed: 900 };
+  const PLAYER = { x: 152, size: 42, gravity: 3000, jumpSpeed: 950 };
 
-  // The level ends after the world has moved this many logical pixels.
-  const LEVEL_END = 8850;
-  const RUN_SPEED = 310;
+  // Level data is loaded by js/levels.js. The fallback keeps the error obvious
+  // if the scripts are accidentally reordered or the file is missing.
+  const level = window.PULSE_RUN_LEVEL || {
+    id: "missing-level",
+    name: "Missing Level",
+    end: 0,
+    speed: 0,
+    objects: []
+  };
 
   // Keeping the palette in one object prevents colour values from being
   // scattered throughout all the drawing functions.
@@ -45,30 +71,19 @@
     violet: "#8075ff"
   };
 
-  // Each obstacle is data. The drawing and collision systems interpret these
-  // records, so adding an obstacle does not require a new block of game logic.
-  const obstacles = [
-    { type: "spike", x: 980, width: 44, height: 48 },
-    { type: "spike", x: 1510, width: 44, height: 48 },
-    { type: "spike", x: 1580, width: 44, height: 48 },
-    { type: "block", x: 2150, width: 86, height: 72 },
-    { type: "spike", x: 2610, width: 44, height: 48 },
-    { type: "spike", x: 2670, width: 44, height: 48 },
-    { type: "spike", x: 2730, width: 44, height: 48 },
-    { type: "block", x: 3370, width: 110, height: 92 },
-    { type: "spike", x: 3650, width: 44, height: 48 },
-    { type: "block", x: 4210, width: 90, height: 62 },
-    { type: "spike", x: 4860, width: 44, height: 48 },
-    { type: "spike", x: 4930, width: 44, height: 48 },
-    { type: "block", x: 5480, width: 95, height: 82 },
-    { type: "spike", x: 6210, width: 44, height: 48 },
-    { type: "spike", x: 6270, width: 44, height: 48 },
-    { type: "block", x: 6830, width: 125, height: 72 },
-    { type: "spike", x: 7460, width: 44, height: 48 },
-    { type: "spike", x: 7520, width: 44, height: 48 },
-    { type: "spike", x: 7580, width: 44, height: 48 },
-    { type: "block", x: 8140, width: 130, height: 90 }
-  ];
+  const DEFAULT_OBJECTS = {
+    spike: {
+      width: 44,
+      height: 48,
+      behavior: { deadly: true, solid: false, canLandOn: false, deadlySides: false }
+    },
+    block: {
+      width: 86,
+      height: 72,
+      behavior: { deadly: false, solid: true, canLandOn: true, deadlySides: true }
+    }
+  };
+  const NEAR_SPIKE_GAP = 140;
 
   // This object contains every value that changes while the game runs.
   // Keeping mutable values together makes reset, pause, and restart predictable.
@@ -78,6 +93,9 @@
     attempt: 1,
     lastTime: 0,
     debug: false,
+    editorMode: false,
+    selectedObjectId: null,
+    draggingTimelineId: null,
     muted: false,
     player: {
       y: VIEW.groundY - PLAYER.size,
@@ -130,6 +148,7 @@
 
   // Begin a new attempt and synchronize the visible interface with game state.
   function startRun() {
+    if (state.editorMode) toggleEditorMode();
     ensureAudio();
     resetPlayer();
     state.mode = "playing";
@@ -144,6 +163,75 @@
     liveStatus.textContent = `Attempt ${state.attempt} started.`;
     canvas.focus();
     playTone(440, 0.08, "square", 0.035);
+  }
+
+  function currentModeLabel() {
+    if (state.mode === "playing") return "Running";
+    if (state.mode === "paused") return "Paused";
+    if (state.mode === "won") return "Complete";
+    if (state.mode === "lost") return "Crashed";
+    return "Ready";
+  }
+
+  function defaultBehavior(type) {
+    return { ...DEFAULT_OBJECTS[type].behavior };
+  }
+
+  function objectBehavior(object) {
+    return { ...defaultBehavior(object.type), ...(object.behavior || {}) };
+  }
+
+  function nextObjectId(type) {
+    const prefix = type === "block" ? "block" : "spike";
+    let index = 1;
+    let id = `${prefix}-${String(index).padStart(3, "0")}`;
+    while (level.objects.some((object) => object.id === id)) {
+      index += 1;
+      id = `${prefix}-${String(index).padStart(3, "0")}`;
+    }
+    return id;
+  }
+
+  function clampNumber(value, min, max) {
+    const number = Number(value);
+    if (!Number.isFinite(number)) return min;
+    return Math.min(max, Math.max(min, number));
+  }
+
+  function normalizeObject(object, fallbackType = "spike") {
+    const type = object?.type === "block" ? "block" : fallbackType;
+    const defaults = DEFAULT_OBJECTS[type];
+    return {
+      id: typeof object?.id === "string" && object.id ? object.id : nextObjectId(type),
+      type,
+      x: clampNumber(object?.x, 0, Math.max(level.end, 1)),
+      width: clampNumber(object?.width ?? defaults.width, 20, 400),
+      height: clampNumber(object?.height ?? defaults.height, 20, 240),
+      behavior: { ...defaultBehavior(type), ...(object?.behavior || {}) }
+    };
+  }
+
+  function selectedObject() {
+    return level.objects.find((object) => object.id === state.selectedObjectId) || null;
+  }
+
+  function ensureSelection() {
+    if (!selectedObject() && level.objects.length > 0) {
+      state.selectedObjectId = level.objects[0].id;
+    }
+  }
+
+  function syncStatePanels() {
+    if (state.editorMode) {
+      startPanel.hidden = true;
+      resultPanel.hidden = true;
+      pausePanel.hidden = true;
+      return;
+    }
+
+    startPanel.hidden = state.mode !== "ready";
+    resultPanel.hidden = state.mode !== "lost" && state.mode !== "won";
+    pausePanel.hidden = state.mode !== "paused";
   }
 
   // Stop gameplay, show the correct result panel, and play result feedback.
@@ -196,9 +284,296 @@
     }
   }
 
+  // Editor mode freezes motion and shows collision boxes so level objects can
+  // be inspected before property controls are added.
+  function toggleEditorMode() {
+    state.editorMode = !state.editorMode;
+    editorButton.setAttribute("aria-pressed", String(state.editorMode));
+    editorButton.setAttribute("aria-label", state.editorMode ? "Exit editor mode" : "Enter editor mode");
+    editorPanel.hidden = !state.editorMode;
+
+    if (state.editorMode) {
+      state.debug = true;
+      if (state.mode === "playing") togglePause();
+      ensureSelection();
+      syncStatePanels();
+      renderEditor();
+      stateLabel.textContent = "Editing";
+      liveStatus.textContent = "Editor mode on. Level objects are paused and hitboxes are shown.";
+    } else {
+      state.debug = false;
+      syncStatePanels();
+      stateLabel.textContent = currentModeLabel();
+      liveStatus.textContent = "Editor mode off.";
+    }
+  }
+
+  function objectLabel(object, index) {
+    return `${index + 1}. ${object.type} at ${Math.round(object.x)}`;
+  }
+
+  function renderObjectList() {
+    objectList.replaceChildren();
+    level.objects.forEach((object, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "object-row";
+      button.textContent = objectLabel(object, index);
+      button.setAttribute("role", "option");
+      button.setAttribute("aria-selected", String(object.id === state.selectedObjectId));
+      button.addEventListener("click", () => {
+        state.selectedObjectId = object.id;
+        renderEditor();
+      });
+      objectList.append(button);
+    });
+  }
+
+  function setPropertyControlsDisabled(disabled) {
+    [
+      objectTypeInput,
+      objectXInput,
+      objectWidthInput,
+      objectHeightInput,
+      deadlyInput,
+      solidInput,
+      canLandOnInput,
+      deadlySidesInput,
+      duplicateObjectButton,
+      evenSpikeSpacingButton,
+      deleteObjectButton
+    ].forEach((control) => {
+      control.disabled = disabled;
+    });
+  }
+
+  function renderPropertyControls() {
+    const object = selectedObject();
+    setPropertyControlsDisabled(!object);
+    if (!object) return;
+
+    const behavior = objectBehavior(object);
+    evenSpikeSpacingButton.disabled = object.type !== "spike";
+    objectTypeInput.value = object.type;
+    objectXInput.value = Math.round(object.x);
+    objectXInput.max = Math.max(level.end, 1);
+    objectWidthInput.value = Math.round(object.width);
+    objectHeightInput.value = Math.round(object.height);
+    deadlyInput.checked = Boolean(behavior.deadly);
+    solidInput.checked = Boolean(behavior.solid);
+    canLandOnInput.checked = Boolean(behavior.canLandOn);
+    deadlySidesInput.checked = Boolean(behavior.deadlySides);
+  }
+
+  function renderTimeline() {
+    editorTimeline.replaceChildren();
+    level.objects.forEach((object) => {
+      const marker = document.createElement("button");
+      marker.type = "button";
+      marker.className = "timeline-marker";
+      marker.textContent = object.type === "spike" ? "S" : "B";
+      marker.style.left = `${level.end > 0 ? (object.x / level.end) * 100 : 0}%`;
+      marker.dataset.objectId = object.id;
+      marker.dataset.type = object.type;
+      marker.setAttribute("aria-label", `${object.type} at ${Math.round(object.x)}`);
+      marker.setAttribute("aria-selected", String(object.id === state.selectedObjectId));
+      marker.addEventListener("click", () => {
+        state.selectedObjectId = object.id;
+        renderEditor();
+      });
+      marker.addEventListener("keydown", (event) => {
+        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+        event.preventDefault();
+        state.selectedObjectId = object.id;
+        moveSelectedObject(event.key === "ArrowRight" ? 10 : -10);
+      });
+      editorTimeline.append(marker);
+    });
+  }
+
+  function renderEditor() {
+    ensureSelection();
+    renderObjectList();
+    renderPropertyControls();
+    renderTimeline();
+  }
+
+  function updateSelectedObject(updates) {
+    const object = selectedObject();
+    if (!object) return;
+    Object.assign(object, updates);
+    object.x = clampNumber(object.x, 0, Math.max(level.end, 1));
+    object.width = clampNumber(object.width, 20, 400);
+    object.height = clampNumber(object.height, 20, 240);
+    object.behavior = { ...defaultBehavior(object.type), ...(object.behavior || {}) };
+    renderEditor();
+  }
+
+  function addObject(type) {
+    const defaults = DEFAULT_OBJECTS[type];
+    const object = normalizeObject({
+      id: nextObjectId(type),
+      type,
+      x: Math.min(level.end - defaults.width, Math.max(120, Math.round(state.distance + 600))),
+      width: defaults.width,
+      height: defaults.height,
+      behavior: defaultBehavior(type)
+    }, type);
+    level.objects.push(object);
+    state.selectedObjectId = object.id;
+    renderEditor();
+    liveStatus.textContent = `${type} added.`;
+  }
+
+  function duplicateSelectedObject() {
+    const object = selectedObject();
+    if (!object) return;
+    const duplicate = normalizeObject({
+      ...object,
+      id: nextObjectId(object.type),
+      x: Math.min(level.end - object.width, object.x + 80),
+      behavior: { ...objectBehavior(object) }
+    }, object.type);
+    level.objects.push(duplicate);
+    state.selectedObjectId = duplicate.id;
+    renderEditor();
+    liveStatus.textContent = "Object duplicated.";
+  }
+
+  function deleteSelectedObject() {
+    const index = level.objects.findIndex((object) => object.id === state.selectedObjectId);
+    if (index === -1) return;
+    level.objects.splice(index, 1);
+    state.selectedObjectId = level.objects[Math.min(index, level.objects.length - 1)]?.id || null;
+    renderEditor();
+    liveStatus.textContent = "Object deleted.";
+  }
+
+  function findNearbySpikeCluster(selectedSpike) {
+    const spikes = level.objects
+      .filter((object) => object.type === "spike")
+      .sort((a, b) => a.x - b.x);
+    const selectedIndex = spikes.findIndex((object) => object.id === selectedSpike.id);
+    if (selectedIndex === -1) return [];
+
+    let startIndex = selectedIndex;
+    while (startIndex > 0) {
+      const previous = spikes[startIndex - 1];
+      const current = spikes[startIndex];
+      const gap = current.x - (previous.x + previous.width);
+      if (gap > NEAR_SPIKE_GAP) break;
+      startIndex -= 1;
+    }
+
+    let endIndex = selectedIndex;
+    while (endIndex < spikes.length - 1) {
+      const current = spikes[endIndex];
+      const next = spikes[endIndex + 1];
+      const gap = next.x - (current.x + current.width);
+      if (gap > NEAR_SPIKE_GAP) break;
+      endIndex += 1;
+    }
+
+    return spikes.slice(startIndex, endIndex + 1);
+  }
+
+  function evenSpikeSpacing() {
+    const object = selectedObject();
+    if (!object || object.type !== "spike") {
+      liveStatus.textContent = "Select a spike before evening nearby spike spacing.";
+      return;
+    }
+
+    const cluster = findNearbySpikeCluster(object);
+    if (cluster.length < 2) {
+      liveStatus.textContent = "Select a spike near at least one other spike.";
+      return;
+    }
+
+    const firstX = cluster[0].x;
+    const last = cluster[cluster.length - 1];
+    const clusterEnd = last.x + last.width;
+    const totalSpikeWidth = cluster.reduce((total, spike) => total + spike.width, 0);
+    const evenGap = Math.max(0, (clusterEnd - firstX - totalSpikeWidth) / (cluster.length - 1));
+    let nextX = firstX + cluster[0].width + evenGap;
+    for (let index = 1; index < cluster.length - 1; index += 1) {
+      cluster[index].x = Math.round(nextX / 10) * 10;
+      nextX = cluster[index].x + cluster[index].width + evenGap;
+    }
+
+    renderEditor();
+    liveStatus.textContent = `${cluster.length} nearby spikes spaced evenly.`;
+  }
+
+  function updateSelectedBehavior(key, value) {
+    const object = selectedObject();
+    if (!object) return;
+    object.behavior = { ...objectBehavior(object), [key]: value };
+    renderEditor();
+  }
+
+  function changeSelectedType(type) {
+    const object = selectedObject();
+    if (!object || !DEFAULT_OBJECTS[type]) return;
+    const defaults = DEFAULT_OBJECTS[type];
+    object.type = type;
+    object.width = defaults.width;
+    object.height = defaults.height;
+    object.behavior = defaultBehavior(type);
+    renderEditor();
+  }
+
+  function exportLevel() {
+    levelJsonInput.value = JSON.stringify(level, null, 2);
+    levelJsonInput.select();
+    liveStatus.textContent = "Level JSON exported.";
+  }
+
+  function importLevel() {
+    try {
+      const imported = JSON.parse(levelJsonInput.value);
+      if (!Array.isArray(imported.objects)) throw new Error("Missing objects array");
+
+      level.id = typeof imported.id === "string" && imported.id ? imported.id : level.id;
+      level.name = typeof imported.name === "string" && imported.name ? imported.name : level.name;
+      level.end = clampNumber(imported.end ?? level.end, 500, 30000);
+      level.speed = clampNumber(imported.speed ?? level.speed, 50, 900);
+      level.objects.splice(0, level.objects.length, ...imported.objects.map((object) => normalizeObject(object)));
+      state.selectedObjectId = level.objects[0]?.id || null;
+      updateHud();
+      renderEditor();
+      liveStatus.textContent = "Level JSON imported.";
+    } catch (error) {
+      liveStatus.textContent = "Level JSON could not be imported.";
+      window.alert(`Import failed: ${error.message}`);
+    }
+  }
+
+  function updateObjectXFromTimeline(clientX) {
+    const object = selectedObject();
+    if (!object) return;
+    const rect = editorTimeline.getBoundingClientRect();
+    const ratio = clampNumber((clientX - rect.left) / rect.width, 0, 1);
+    object.x = Math.round((ratio * level.end) / 10) * 10;
+    renderEditor();
+  }
+
+  function moveSelectedObject(delta) {
+    const object = selectedObject();
+    if (!object) return;
+    object.x = clampNumber(object.x + delta, 0, Math.max(level.end, 1));
+    object.x = Math.round(object.x / 10) * 10;
+    renderEditor();
+  }
+
   // One action serves several states: start, restart, or jump. During play, a
   // jump only begins when grounded, which prevents unlimited air jumps.
   function requestJump() {
+    if (state.editorMode) {
+      liveStatus.textContent = "Exit editor mode before playing.";
+      return;
+    }
+
     if (state.mode === "ready") {
       startRun();
       return;
@@ -258,7 +633,7 @@
   // update() advances the simulation by deltaTime seconds. Using elapsed time
   // keeps the movement speed similar on fast and slow displays.
   function update(deltaTime) {
-    state.distance += RUN_SPEED * deltaTime;
+    state.distance += level.speed * deltaTime;
 
     // Gravity changes vertical velocity, then velocity changes position.
     state.player.velocityY += PLAYER.gravity * deltaTime;
@@ -281,11 +656,12 @@
 
     // Only nearby obstacles need detailed collision checks.
     const player = playerRect();
-    for (const obstacle of obstacles) {
+    for (const obstacle of level.objects) {
+      const behavior = objectBehavior(obstacle);
       const collision = obstacleRect(obstacle);
       if (collision.x > VIEW.width || collision.x + collision.width < 0) continue;
 
-      if (obstacle.type === "block") {
+      if (obstacle.type === "block" && behavior.solid && behavior.canLandOn) {
         // A falling player may land on a block from above. Contact from the
         // side or underside still ends the attempt.
         const previousBottom = player.y + player.height - state.player.velocityY * deltaTime;
@@ -301,8 +677,12 @@
       }
 
       if (overlaps(playerRect(), collision)) {
-        endRun(false);
-        return;
+        const dangerousSpike = obstacle.type === "spike" && behavior.deadly;
+        const dangerousBlock = obstacle.type === "block" && (behavior.deadly || behavior.deadlySides);
+        if (dangerousSpike || dangerousBlock) {
+          endRun(false);
+          return;
+        }
       }
     }
 
@@ -310,13 +690,13 @@
     state.player.grounded = landedThisFrame;
 
     // Reaching the level distance changes the state to won.
-    if (state.distance >= LEVEL_END) endRun(true);
+    if (state.distance >= level.end) endRun(true);
     updateHud();
   }
 
   // Keep the HTML progress display in step with the Canvas simulation.
   function updateHud() {
-    const progress = Math.min(100, Math.round((state.distance / LEVEL_END) * 100));
+    const progress = level.end > 0 ? Math.min(100, Math.round((state.distance / level.end) * 100)) : 0;
     progressFill.style.width = `${progress}%`;
     progressLabel.value = `${progress}%`;
     progressLabel.textContent = `${progress}%`;
@@ -383,9 +763,10 @@
   function drawObstacle(obstacle) {
     const x = obstacle.x - state.distance + PLAYER.x;
     if (x > VIEW.width + 100 || x + obstacle.width < -100) return;
+    const behavior = objectBehavior(obstacle);
 
     if (obstacle.type === "spike") {
-      context.fillStyle = COLORS.coral;
+      context.fillStyle = behavior.deadly ? COLORS.coral : COLORS.green;
       context.beginPath();
       context.moveTo(x, VIEW.groundY);
       context.lineTo(x + obstacle.width / 2, VIEW.groundY - obstacle.height);
@@ -397,21 +778,33 @@
       context.stroke();
     } else {
       const y = VIEW.groundY - obstacle.height;
-      context.fillStyle = COLORS.violet;
+      context.fillStyle = behavior.solid ? COLORS.violet : "rgba(128, 117, 255, 0.45)";
       context.fillRect(x, y, obstacle.width, obstacle.height);
-      context.strokeStyle = COLORS.paper;
+      context.strokeStyle = behavior.deadlySides || behavior.deadly ? COLORS.coral : COLORS.paper;
       context.lineWidth = 4;
       context.strokeRect(x + 2, y + 2, obstacle.width - 4, obstacle.height - 4);
       context.fillStyle = "rgba(19, 19, 21, 0.24)";
       context.fillRect(x + 13, y + 13, obstacle.width - 26, obstacle.height - 26);
     }
 
+    if (state.editorMode && obstacle.id === state.selectedObjectId) drawSelectionOutline(obstacle);
     if (state.debug) drawHitbox(obstacleRect(obstacle));
   }
 
-  // Draw a checkered marker at the fixed world position LEVEL_END.
+  function drawSelectionOutline(obstacle) {
+    const x = obstacle.x - state.distance + PLAYER.x;
+    const y = VIEW.groundY - obstacle.height;
+    context.save();
+    context.strokeStyle = COLORS.yellow;
+    context.lineWidth = 3;
+    context.setLineDash([8, 6]);
+    context.strokeRect(x - 8, y - 8, obstacle.width + 16, obstacle.height + 16);
+    context.restore();
+  }
+
+  // Draw a checkered marker at the fixed world position level.end.
   function drawFinish() {
-    const x = LEVEL_END - state.distance + PLAYER.x;
+    const x = level.end - state.distance + PLAYER.x;
     if (x > VIEW.width + 120 || x < -120) return;
 
     context.fillStyle = COLORS.paper;
@@ -462,7 +855,7 @@
     context.clearRect(0, 0, VIEW.width, VIEW.height);
     drawBackground();
     drawGround();
-    obstacles.forEach(drawObstacle);
+    level.objects.forEach(drawObstacle);
     drawFinish();
     drawPlayer();
   }
@@ -497,7 +890,14 @@
       togglePause();
     } else if (event.code === "KeyM") {
       toggleMute();
+    } else if (event.code === "KeyE") {
+      event.preventDefault();
+      toggleEditorMode();
     } else if (event.code === "KeyD") {
+      if (state.editorMode) {
+        liveStatus.textContent = "Hitboxes stay visible in editor mode.";
+        return;
+      }
       state.debug = !state.debug;
       liveStatus.textContent = `Hitboxes ${state.debug ? "shown" : "hidden"}.`;
     }
@@ -515,12 +915,65 @@
     }
   }
 
+  function bindPress(button, action) {
+    let handledPointer = false;
+    button.addEventListener("pointerup", (event) => {
+      event.preventDefault();
+      handledPointer = true;
+      action();
+      window.setTimeout(() => {
+        handledPointer = false;
+      }, 0);
+    });
+    button.addEventListener("click", () => {
+      if (handledPointer) return;
+      action();
+    });
+  }
+
+  level.objects.splice(0, level.objects.length, ...level.objects.map((object) => normalizeObject(object)));
+  state.selectedObjectId = level.objects[0]?.id || null;
+
   // Event listeners connect HTML, keyboard, pointer, and browser events to the
   // game functions. The game pauses automatically when its tab is hidden.
-  startButton.addEventListener("click", startRun);
-  restartButton.addEventListener("click", restartRun);
-  pauseButton.addEventListener("click", togglePause);
-  muteButton.addEventListener("click", toggleMute);
+  bindPress(startButton, startRun);
+  bindPress(restartButton, restartRun);
+  bindPress(editorButton, toggleEditorMode);
+  bindPress(addSpikeButton, () => addObject("spike"));
+  bindPress(addBlockButton, () => addObject("block"));
+  bindPress(duplicateObjectButton, duplicateSelectedObject);
+  bindPress(evenSpikeSpacingButton, evenSpikeSpacing);
+  bindPress(deleteObjectButton, deleteSelectedObject);
+  objectTypeInput.addEventListener("change", () => changeSelectedType(objectTypeInput.value));
+  objectXInput.addEventListener("input", () => updateSelectedObject({ x: Number(objectXInput.value) }));
+  objectWidthInput.addEventListener("input", () => updateSelectedObject({ width: Number(objectWidthInput.value) }));
+  objectHeightInput.addEventListener("input", () => updateSelectedObject({ height: Number(objectHeightInput.value) }));
+  deadlyInput.addEventListener("change", () => updateSelectedBehavior("deadly", deadlyInput.checked));
+  solidInput.addEventListener("change", () => updateSelectedBehavior("solid", solidInput.checked));
+  canLandOnInput.addEventListener("change", () => updateSelectedBehavior("canLandOn", canLandOnInput.checked));
+  deadlySidesInput.addEventListener("change", () => updateSelectedBehavior("deadlySides", deadlySidesInput.checked));
+  bindPress(exportLevelButton, exportLevel);
+  bindPress(importLevelButton, importLevel);
+  editorTimeline.addEventListener("pointerdown", (event) => {
+    const marker = event.target.closest(".timeline-marker");
+    if (!marker) return;
+    state.selectedObjectId = marker.dataset.objectId;
+    state.draggingTimelineId = marker.dataset.objectId;
+    marker.setPointerCapture(event.pointerId);
+    updateObjectXFromTimeline(event.clientX);
+  });
+  editorTimeline.addEventListener("pointermove", (event) => {
+    if (!state.draggingTimelineId) return;
+    updateObjectXFromTimeline(event.clientX);
+  });
+  editorTimeline.addEventListener("pointerup", () => {
+    state.draggingTimelineId = null;
+  });
+  editorTimeline.addEventListener("pointercancel", () => {
+    state.draggingTimelineId = null;
+  });
+  bindPress(pauseButton, togglePause);
+  bindPress(muteButton, toggleMute);
   canvas.addEventListener("pointerdown", requestJump);
   window.addEventListener("keydown", handleKeydown);
   window.addEventListener("resize", resizeCanvas);
@@ -531,6 +984,7 @@
   // Set the initial resolution and picture before starting the perpetual loop.
   resizeCanvas();
   updateHud();
+  renderEditor();
   draw();
   window.requestAnimationFrame((time) => {
     state.lastTime = time;
