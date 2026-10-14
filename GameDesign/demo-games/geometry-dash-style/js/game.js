@@ -24,12 +24,14 @@
   const editorPanel = document.querySelector("#editorPanel");
   const addSpikeButton = document.querySelector("#addSpikeButton");
   const addBlockButton = document.querySelector("#addBlockButton");
+  const addPlatformButton = document.querySelector("#addPlatformButton");
   const duplicateObjectButton = document.querySelector("#duplicateObjectButton");
   const evenSpikeSpacingButton = document.querySelector("#evenSpikeSpacingButton");
   const deleteObjectButton = document.querySelector("#deleteObjectButton");
   const objectList = document.querySelector("#objectList");
   const objectTypeInput = document.querySelector("#objectTypeInput");
   const objectXInput = document.querySelector("#objectXInput");
+  const objectYInput = document.querySelector("#objectYInput");
   const objectWidthInput = document.querySelector("#objectWidthInput");
   const objectHeightInput = document.querySelector("#objectHeightInput");
   const deadlyInput = document.querySelector("#deadlyInput");
@@ -81,6 +83,11 @@
       width: 86,
       height: 72,
       behavior: { deadly: false, solid: true, canLandOn: true, deadlySides: true }
+    },
+    platform: {
+      width: 150,
+      height: 28,
+      behavior: { deadly: false, solid: true, canLandOn: true, deadlySides: false }
     }
   };
   const NEAR_SPIKE_GAP = 140;
@@ -182,7 +189,7 @@
   }
 
   function nextObjectId(type) {
-    const prefix = type === "block" ? "block" : "spike";
+    const prefix = DEFAULT_OBJECTS[type] ? type : "spike";
     let index = 1;
     let id = `${prefix}-${String(index).padStart(3, "0")}`;
     while (level.objects.some((object) => object.id === id)) {
@@ -198,17 +205,33 @@
     return Math.min(max, Math.max(min, number));
   }
 
+  function defaultObjectY(type, height) {
+    if (type === "spike") return VIEW.groundY - height;
+    if (type === "platform") return VIEW.groundY - 150;
+    return VIEW.groundY - height;
+  }
+
+  function maxObjectY(height) {
+    return Math.max(0, VIEW.groundY - height);
+  }
+
   function normalizeObject(object, fallbackType = "spike") {
-    const type = object?.type === "block" ? "block" : fallbackType;
+    const type = DEFAULT_OBJECTS[object?.type] ? object.type : fallbackType;
     const defaults = DEFAULT_OBJECTS[type];
+    const height = clampNumber(object?.height ?? defaults.height, 20, 240);
     return {
       id: typeof object?.id === "string" && object.id ? object.id : nextObjectId(type),
       type,
       x: clampNumber(object?.x, 0, Math.max(level.end, 1)),
       width: clampNumber(object?.width ?? defaults.width, 20, 400),
-      height: clampNumber(object?.height ?? defaults.height, 20, 240),
+      height,
+      y: clampNumber(object?.y ?? defaultObjectY(type, height), 0, maxObjectY(height)),
       behavior: { ...defaultBehavior(type), ...(object?.behavior || {}) }
     };
+  }
+
+  function isSolidPlatformObject(object) {
+    return object.type === "block" || object.type === "platform";
   }
 
   function selectedObject() {
@@ -309,7 +332,7 @@
   }
 
   function objectLabel(object, index) {
-    return `${index + 1}. ${object.type} at ${Math.round(object.x)}`;
+    return `${index + 1}. ${object.type} at ${Math.round(object.x)}, ${Math.round(object.y)}`;
   }
 
   function renderObjectList() {
@@ -333,6 +356,7 @@
     [
       objectTypeInput,
       objectXInput,
+      objectYInput,
       objectWidthInput,
       objectHeightInput,
       deadlyInput,
@@ -357,6 +381,8 @@
     objectTypeInput.value = object.type;
     objectXInput.value = Math.round(object.x);
     objectXInput.max = Math.max(level.end, 1);
+    objectYInput.value = Math.round(object.y);
+    objectYInput.max = maxObjectY(object.height);
     objectWidthInput.value = Math.round(object.width);
     objectHeightInput.value = Math.round(object.height);
     deadlyInput.checked = Boolean(behavior.deadly);
@@ -371,7 +397,7 @@
       const marker = document.createElement("button");
       marker.type = "button";
       marker.className = "timeline-marker";
-      marker.textContent = object.type === "spike" ? "S" : "B";
+      marker.textContent = object.type === "spike" ? "S" : object.type === "platform" ? "P" : "B";
       marker.style.left = `${level.end > 0 ? (object.x / level.end) * 100 : 0}%`;
       marker.dataset.objectId = object.id;
       marker.dataset.type = object.type;
@@ -405,6 +431,7 @@
     object.x = clampNumber(object.x, 0, Math.max(level.end, 1));
     object.width = clampNumber(object.width, 20, 400);
     object.height = clampNumber(object.height, 20, 240);
+    object.y = clampNumber(object.y, 0, maxObjectY(object.height));
     object.behavior = { ...defaultBehavior(object.type), ...(object.behavior || {}) };
     renderEditor();
   }
@@ -415,6 +442,7 @@
       id: nextObjectId(type),
       type,
       x: Math.min(level.end - defaults.width, Math.max(120, Math.round(state.distance + 600))),
+      y: defaultObjectY(type, defaults.height),
       width: defaults.width,
       height: defaults.height,
       behavior: defaultBehavior(type)
@@ -519,6 +547,7 @@
     object.type = type;
     object.width = defaults.width;
     object.height = defaults.height;
+    object.y = defaultObjectY(type, defaults.height);
     object.behavior = defaultBehavior(type);
     renderEditor();
   }
@@ -609,14 +638,14 @@
     if (obstacle.type === "spike") {
       return {
         x: screenX + 9,
-        y: VIEW.groundY - obstacle.height + 13,
+        y: obstacle.y + 13,
         width: obstacle.width - 18,
         height: obstacle.height - 13
       };
     }
     return {
       x: screenX,
-      y: VIEW.groundY - obstacle.height,
+      y: obstacle.y,
       width: obstacle.width,
       height: obstacle.height
     };
@@ -661,7 +690,7 @@
       const collision = obstacleRect(obstacle);
       if (collision.x > VIEW.width || collision.x + collision.width < 0) continue;
 
-      if (obstacle.type === "block" && behavior.solid && behavior.canLandOn) {
+      if (isSolidPlatformObject(obstacle) && behavior.solid && behavior.canLandOn) {
         // A falling player may land on a block from above. Contact from the
         // side or underside still ends the attempt.
         const previousBottom = player.y + player.height - state.player.velocityY * deltaTime;
@@ -678,7 +707,7 @@
 
       if (overlaps(playerRect(), collision)) {
         const dangerousSpike = obstacle.type === "spike" && behavior.deadly;
-        const dangerousBlock = obstacle.type === "block" && (behavior.deadly || behavior.deadlySides);
+        const dangerousBlock = isSolidPlatformObject(obstacle) && (behavior.deadly || behavior.deadlySides);
         if (dangerousSpike || dangerousBlock) {
           endRun(false);
           return;
@@ -768,23 +797,23 @@
     if (obstacle.type === "spike") {
       context.fillStyle = behavior.deadly ? COLORS.coral : COLORS.green;
       context.beginPath();
-      context.moveTo(x, VIEW.groundY);
-      context.lineTo(x + obstacle.width / 2, VIEW.groundY - obstacle.height);
-      context.lineTo(x + obstacle.width, VIEW.groundY);
+      context.moveTo(x, obstacle.y + obstacle.height);
+      context.lineTo(x + obstacle.width / 2, obstacle.y);
+      context.lineTo(x + obstacle.width, obstacle.y + obstacle.height);
       context.closePath();
       context.fill();
       context.strokeStyle = COLORS.paper;
       context.lineWidth = 3;
       context.stroke();
     } else {
-      const y = VIEW.groundY - obstacle.height;
-      context.fillStyle = behavior.solid ? COLORS.violet : "rgba(128, 117, 255, 0.45)";
+      const y = obstacle.y;
+      context.fillStyle = obstacle.type === "platform" ? COLORS.green : behavior.solid ? COLORS.violet : "rgba(128, 117, 255, 0.45)";
       context.fillRect(x, y, obstacle.width, obstacle.height);
       context.strokeStyle = behavior.deadlySides || behavior.deadly ? COLORS.coral : COLORS.paper;
       context.lineWidth = 4;
       context.strokeRect(x + 2, y + 2, obstacle.width - 4, obstacle.height - 4);
       context.fillStyle = "rgba(19, 19, 21, 0.24)";
-      context.fillRect(x + 13, y + 13, obstacle.width - 26, obstacle.height - 26);
+      context.fillRect(x + 13, y + 8, Math.max(0, obstacle.width - 26), Math.max(0, obstacle.height - 16));
     }
 
     if (state.editorMode && obstacle.id === state.selectedObjectId) drawSelectionOutline(obstacle);
@@ -793,7 +822,7 @@
 
   function drawSelectionOutline(obstacle) {
     const x = obstacle.x - state.distance + PLAYER.x;
-    const y = VIEW.groundY - obstacle.height;
+    const y = obstacle.y;
     context.save();
     context.strokeStyle = COLORS.yellow;
     context.lineWidth = 3;
@@ -941,11 +970,13 @@
   bindPress(editorButton, toggleEditorMode);
   bindPress(addSpikeButton, () => addObject("spike"));
   bindPress(addBlockButton, () => addObject("block"));
+  bindPress(addPlatformButton, () => addObject("platform"));
   bindPress(duplicateObjectButton, duplicateSelectedObject);
   bindPress(evenSpikeSpacingButton, evenSpikeSpacing);
   bindPress(deleteObjectButton, deleteSelectedObject);
   objectTypeInput.addEventListener("change", () => changeSelectedType(objectTypeInput.value));
   objectXInput.addEventListener("input", () => updateSelectedObject({ x: Number(objectXInput.value) }));
+  objectYInput.addEventListener("input", () => updateSelectedObject({ y: Number(objectYInput.value) }));
   objectWidthInput.addEventListener("input", () => updateSelectedObject({ width: Number(objectWidthInput.value) }));
   objectHeightInput.addEventListener("input", () => updateSelectedObject({ height: Number(objectHeightInput.value) }));
   deadlyInput.addEventListener("change", () => updateSelectedBehavior("deadly", deadlyInput.checked));

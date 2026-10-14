@@ -81,6 +81,7 @@
         <div class="editor-toolbar">
           <button id="addSpikeButton" class="icon-button" type="button">Add spike</button>
           <button id="addBlockButton" class="icon-button" type="button">Add block</button>
+          <button id="addPlatformButton" class="icon-button" type="button">Add platform</button>
           <button id="duplicateObjectButton" class="icon-button" type="button">Duplicate</button>
           <button id="evenSpikeSpacingButton" class="icon-button" type="button">Even spike spacing</button>
           <button id="deleteObjectButton" class="icon-button" type="button">Delete</button>
@@ -99,11 +100,16 @@
               <select id="objectTypeInput">
                 <option value="spike">Spike</option>
                 <option value="block">Block</option>
+                <option value="platform">Platform</option>
               </select>
             </label>
             <label>
               X
               <input id="objectXInput" type="number" min="0" step="10">
+            </label>
+            <label>
+              Y
+              <input id="objectYInput" type="number" min="0" step="10">
             </label>
             <label>
               Width

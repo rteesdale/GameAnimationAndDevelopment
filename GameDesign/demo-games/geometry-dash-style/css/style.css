@@ -388,7 +388,7 @@ kbd {
 
 .property-panel {
   display: grid;
-  grid-template-columns: repeat(4, minmax(80px, 1fr));
+  grid-template-columns: repeat(5, minmax(80px, 1fr));
   gap: 10px;
 }
 
@@ -474,6 +474,10 @@ kbd {
 
 .timeline-marker[data-type="spike"] {
   background: var(--coral);
+}
+
+.timeline-marker[data-type="platform"] {
+  background: var(--green);
 }
 
 .timeline-marker[aria-selected="true"] {
